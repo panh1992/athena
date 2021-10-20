@@ -41,7 +41,7 @@ public class ResourceQueries {
             Map<String, Object> params = Maps.newHashMap();
             String sql = "SELECT COUNT(1) FROM auth.resource "
                     .concat(this.setConditions(params, name, platform, module, uri, method));
-            return handle.createQuery(sql).bindMap(params).mapTo(Long.class).findOnly();
+            return handle.createQuery(sql).bindMap(params).mapTo(Long.class).one();
         });
     }
 

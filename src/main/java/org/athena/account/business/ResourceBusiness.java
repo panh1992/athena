@@ -47,14 +47,6 @@ public class ResourceBusiness {
     }
 
     /**
-     * 通过 uri 和 method 获取资源
-     */
-    @InTransaction(value = TransactionIsolationLevel.REPEATABLE_READ, readOnly = true)
-    public Optional<Resource> get(String uri, String method) {
-        return resourceRepository.findByUriAndMethod(uri, method);
-    }
-
-    /**
      * 查询所有资源
      */
     @InTransaction(value = TransactionIsolationLevel.REPEATABLE_READ, readOnly = true)
@@ -88,6 +80,14 @@ public class ResourceBusiness {
     public ResourceResp get(Long resourceId) {
         Resource resource = this.getResource(resourceId);
         return this.build(resource);
+    }
+
+    /**
+     * 通过 uri 和 method 获取资源
+     */
+    @InTransaction(value = TransactionIsolationLevel.REPEATABLE_READ, readOnly = true)
+    public Optional<Resource> get(String uri, String method) {
+        return resourceRepository.findByUriAndMethod(uri, method);
     }
 
     /**

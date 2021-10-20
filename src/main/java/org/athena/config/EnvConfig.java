@@ -13,7 +13,7 @@ import org.athena.auth.AthenaDynamicFeature;
 import org.athena.auth.jwt.JWTAuthenticator;
 import org.athena.auth.jwt.JWTAuthorizer;
 import org.athena.auth.jwt.JWTCredentialAuthFilter;
-import org.athena.auth.RolesAllowedDynamicFeature;
+import org.athena.auth.RolesAllowedFeature;
 import org.athena.auth.UserInfo;
 import org.athena.config.configuration.AthenaConfiguration;
 import org.athena.config.configuration.CorsConfiguration;
@@ -63,7 +63,7 @@ public final class EnvConfig {
     /**
      * 注册认证鉴权处理
      */
-    public static void registerAuthorization(Environment environment, GuiceBundle<Configuration> guiceBundle) {
+    public static void registerAuthorization(Environment environment, GuiceBundle guiceBundle) {
 
         UserBusiness userBusiness = guiceBundle.getInjector().getInstance(UserBusiness.class);
         ResourceBusiness resourceBusiness = guiceBundle.getInjector().getInstance(ResourceBusiness.class);
@@ -74,7 +74,7 @@ public final class EnvConfig {
                 .build()));
 
         // 添加权限校验
-        environment.jersey().register(new RolesAllowedDynamicFeature(guiceBundle.getInjector()
+        environment.jersey().register(new RolesAllowedFeature(guiceBundle.getInjector()
                 .getInstance(RoleBusiness.class), resourceBusiness));
         // If you want to use @Auth to inject a custom Principal type into your resource
         environment.jersey().register(new AuthValueFactoryProvider.Binder<>(UserInfo.class));
@@ -85,7 +85,7 @@ public final class EnvConfig {
      * 注册健康检查
      */
     public static void registerHealthCheck(Environment environment, AthenaConfiguration configuration,
-                                           GuiceBundle<Configuration> guiceBundle) {
+                                           GuiceBundle guiceBundle) {
 
         environment.healthChecks().register("dataBaseHealthCheck", new JdbiHealthCheck(guiceBundle
                 .getInjector().getInstance(Jdbi.class), configuration.getDatabase().getValidationQuery()));

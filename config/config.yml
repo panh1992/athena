@@ -112,11 +112,6 @@ redis:
   password: 123456
   db: 8
 
-elasticsearch:
-  hostname: localhost
-  port: 9200
-  scheme: http
-
 rabbitmq:
   host: localhost
   username: admin

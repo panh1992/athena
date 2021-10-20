@@ -47,7 +47,7 @@ public class RoleQueries {
                 params.put("name", QueryUtil.like(name));
             }
             String sql = "SELECT COUNT(1) FROM auth.role ".concat(nameQuery);
-            return handle.createQuery(sql).bindMap(params).mapTo(Long.class).findOnly();
+            return handle.createQuery(sql).bindMap(params).mapTo(Long.class).one();
         });
     }
 

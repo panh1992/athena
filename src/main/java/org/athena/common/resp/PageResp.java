@@ -14,16 +14,16 @@ import java.util.List;
 public class PageResp<T> {
 
     @ApiModelProperty("限制")
-    private long limit;
+    private final long limit;
 
     @ApiModelProperty("偏移量")
-    private long offset;
+    private final long offset;
 
     @ApiModelProperty("总记录数")
-    private long totalElements;
+    private final long totalElements;
 
     @ApiModelProperty("分页内容")
-    private List<T> content;
+    private final List<T> content;
 
     /**
      * 创建分页响应
@@ -36,11 +36,11 @@ public class PageResp<T> {
     }
 
     public static <T> PageResp<T> of(List<T> content, long limit, long offset, long total) {
-        return new PageResp(content, limit, offset, total);
+        return new PageResp<>(content, limit, offset, total);
     }
 
     public static <T> PageResp<T> of(List<T> content, long limit, long offset) {
-        return new PageResp(content, limit, offset, 0L);
+        return new PageResp<>(content, limit, offset, 0L);
     }
 
 }

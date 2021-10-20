@@ -51,7 +51,7 @@ public class StoreSpacesQueries {
             }
             String sql = String.join("", "SELECT COUNT(1) FROM store_space WHERE creator_id = ",
                     ":creator_id ", nameQuery);
-            return handle.createQuery(sql).bindMap(params).mapTo(Long.class).findOnly();
+            return handle.createQuery(sql).bindMap(params).mapTo(Long.class).one();
         });
     }
 

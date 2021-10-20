@@ -20,13 +20,16 @@ import javax.ws.rs.core.FeatureContext;
 import java.util.List;
 import java.util.Objects;
 
-public class RolesAllowedDynamicFeature implements DynamicFeature {
+/**
+ * 权限校验处理 Feature
+ */
+public class RolesAllowedFeature implements DynamicFeature {
 
     private RoleBusiness roleBusiness;
 
     private ResourceBusiness resourceBusiness;
 
-    public RolesAllowedDynamicFeature(RoleBusiness roleBusiness, ResourceBusiness resourceBusiness) {
+    public RolesAllowedFeature(RoleBusiness roleBusiness, ResourceBusiness resourceBusiness) {
         this.roleBusiness = roleBusiness;
         this.resourceBusiness = resourceBusiness;
     }

@@ -16,30 +16,27 @@
         <maven.resources.overwrite>true</maven.resources.overwrite>
         <start.class>org.athena.AthenaApplication</start.class>
         <!-- 项目依赖项 -->
-        <dropwizard.version>1.3.7</dropwizard.version>
+        <dropwizard.version>2.0.25</dropwizard.version>
         <dropwizard-jobs-guice.version>4.0.0-RELEASE</dropwizard-jobs-guice.version>
-        <dropwizard.swagger.version>1.3.7-1</dropwizard.swagger.version>
-        <guicey.version>0.7.0</guicey.version>
-        <jdbi3.version>3.5.1</jdbi3.version>
-        <postgresql.driver.version>42.2.5</postgresql.driver.version>
-        <redisson.version>3.9.1</redisson.version>
-        <elasticsearch.version>7.1.1</elasticsearch.version>
+        <dropwizard.swagger.version>2.0.12-1</dropwizard.swagger.version>
+        <guicey.version>5.3.0-1</guicey.version>
+        <jdbi3.version>3.18.0</jdbi3.version>
+        <postgresql.driver.version>42.3.0</postgresql.driver.version>
+        <redisson.version>3.16.3</redisson.version>
         <rabbitmq.version>5.7.1</rabbitmq.version>
-        <jose4j.version>0.6.4</jose4j.version>
+        <jose4j.version>0.7.9</jose4j.version>
         <jbcrypt.version>0.4</jbcrypt.version>
-        <jaxb-api.version>2.4.0-b180830.0359</jaxb-api.version>
-        <guice.version>4.2.2</guice.version>
-        <HikariCP.version>3.3.1</HikariCP.version>
-        <netty.version>4.1.43.Final</netty.version>
+        <guice.version>5.0.1</guice.version>
+        <HikariCP.version>5.0.0</HikariCP.version>
         <aliyun-java-sdk-core.version>4.4.0</aliyun-java-sdk-core.version>
         <aliyun-java-sdk-sts.version>3.0.1</aliyun-java-sdk-sts.version>
         <aliyun-sdk-oss.version>3.4.2</aliyun-sdk-oss.version>
         <quartz.version>2.3.2</quartz.version>
-        <lombok.version>1.18.4</lombok.version>
-        <easypoi.version>4.1.1</easypoi.version>
-        <guava.version>28.2-jre</guava.version>
+        <lombok.version>1.18.22</lombok.version>
+        <easypoi.version>4.4.0</easypoi.version>
+        <guava.version>31.0.1-jre</guava.version>
         <!-- maven 插件 -->
-        <checkstyle.version>3.0.0</checkstyle.version>
+        <checkstyle.version>3.1.2</checkstyle.version>
         <findbugs.version>3.0.5</findbugs.version>
         <pmd.version>3.11.0</pmd.version>
         <jacoco.version>0.8.3</jacoco.version>
@@ -143,12 +140,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/io.netty/netty-all -->
-        <dependency>
-            <groupId>io.netty</groupId>
-            <artifactId>netty-all</artifactId>
-            <version>${netty.version}</version>
-        </dependency>
         <!-- https://mvnrepository.com/artifact/com.google.inject/guice -->
         <dependency>
             <groupId>com.google.inject</groupId>
@@ -210,12 +201,6 @@
             <artifactId>redisson</artifactId>
             <version>${redisson.version}</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.elasticsearch.client/elasticsearch-rest-high-level-client -->
-        <dependency>
-            <groupId>org.elasticsearch.client</groupId>
-            <artifactId>elasticsearch-rest-high-level-client</artifactId>
-            <version>${elasticsearch.version}</version>
-        </dependency>
         <!-- https://mvnrepository.com/artifact/com.rabbitmq/amqp-client -->
         <dependency>
             <groupId>com.rabbitmq</groupId>
@@ -252,12 +237,6 @@
             <version>${lombok.version}</version>
             <scope>provided</scope>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api -->
-        <dependency>
-            <groupId>javax.xml.bind</groupId>
-            <artifactId>jaxb-api</artifactId>
-            <version>${jaxb-api.version}</version>
-        </dependency>
         <!-- https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-s3 -->
         <dependency>
             <groupId>com.amazonaws</groupId>
@@ -280,11 +259,11 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.0</version>
+                <version>3.8.1</version>
                 <configuration>
                     <encoding>${project.build.sourceEncoding}</encoding>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>11</source>
+                    <target>11</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -370,7 +349,7 @@
                     <dependency>
                         <groupId>com.puppycrawl.tools</groupId>
                         <artifactId>checkstyle</artifactId>
-                        <version>8.29</version>
+                        <version>9.0.1</version>
                     </dependency>
                 </dependencies>
                 <configuration>

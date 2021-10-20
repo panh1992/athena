@@ -1,7 +1,6 @@
 package org.athena;
 
 import io.dropwizard.Application;
-import io.dropwizard.Configuration;
 import io.dropwizard.forms.MultiPartBundle;
 import io.dropwizard.jdbi3.bundles.JdbiExceptionsBundle;
 import io.dropwizard.jobs.JobsBundle;
@@ -19,7 +18,7 @@ import ru.vyarus.guicey.jdbi3.JdbiBundle;
 
 public class AthenaApplication extends Application<AthenaConfiguration> {
 
-    private GuiceBundle<Configuration> guiceBundle;
+    private GuiceBundle guiceBundle;
 
     /**
      * Athena 程序启动类
@@ -36,8 +35,7 @@ public class AthenaApplication extends Application<AthenaConfiguration> {
     public void initialize(Bootstrap<AthenaConfiguration> bootstrap) {
 
         guiceBundle = GuiceBundle.builder().bundles(JdbiBundle.forDbi(JDBIFactory::get))
-                .modules(new EnvironmentModule()).enableAutoConfig(getClass().getPackage().getName())
-                .useWebInstallers().build();
+                .modules(new EnvironmentModule()).enableAutoConfig(getClass().getPackage().getName()).build();
 
         bootstrap.addBundle(guiceBundle);
         bootstrap.addBundle(new JobsBundle(new DemoJob()));

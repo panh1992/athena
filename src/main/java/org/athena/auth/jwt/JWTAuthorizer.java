@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 import org.athena.account.business.UserBusiness;
 import org.athena.auth.UserInfo;
 
+import javax.annotation.Nullable;
+import javax.ws.rs.container.ContainerRequestContext;
+
 /**
  * 完成 用户权限 校验
  */

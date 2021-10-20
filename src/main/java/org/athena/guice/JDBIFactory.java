@@ -34,7 +34,7 @@ public class JDBIFactory {
         config.setPassword(factory.getPassword());
         config.setMinimumIdle(factory.getMinSize());
         config.setMaximumPoolSize(factory.getMaxSize());
-        config.setConnectionTestQuery(factory.getValidationQuery());
+        config.setConnectionTestQuery(factory.getValidationQuery().orElse(null));
         // 是否自定义配置，为true时下面两个参数才生效
         config.addDataSourceProperty("cachePrepStmts", "true");
         // 连接池大小默认25，官方推荐250-500
