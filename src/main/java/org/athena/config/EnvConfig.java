@@ -1,6 +1,5 @@
 package org.athena.config;
 
-import io.dropwizard.Configuration;
 import io.dropwizard.auth.AuthValueFactoryProvider;
 import io.dropwizard.jdbi3.JdbiHealthCheck;
 import io.dropwizard.setup.Environment;
