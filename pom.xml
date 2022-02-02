@@ -21,7 +21,7 @@
         <dropwizard.swagger.version>2.0.12-1</dropwizard.swagger.version>
         <guicey.version>5.3.0-1</guicey.version>
         <jdbi3.version>3.18.0</jdbi3.version>
-        <postgresql.driver.version>42.3.0</postgresql.driver.version>
+        <postgresql.driver.version>42.3.2</postgresql.driver.version>
         <redisson.version>3.16.3</redisson.version>
         <rabbitmq.version>5.7.1</rabbitmq.version>
         <jose4j.version>0.7.9</jose4j.version>
