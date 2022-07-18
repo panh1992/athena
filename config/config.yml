@@ -41,7 +41,7 @@ logging:
     "org.reflections":
       level: OFF
     "io.netty":
-      level: DEBUG
+      level: INFO
     "org.athena":
       level: DEBUG
 

@@ -8,9 +8,9 @@ cache:
     - '$HOME/.m2/repository'
 
 script:
-  - mvn clean package sonar:sonar -Dsonar.projectKey=panh1992_athena -Dsonar.organization=panh1992-github -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=a20594bf5e41f2c99d7a549b4b98467cdcd504f0 > /dev/null
+  - ./gradlew clean package > /dev/null
 
-install: mvn install -DskipTests=true -Dmaven.javadoc.skip=true > /dev/null
+install: ./gradlew clean shadowJar > /dev/null
 
 after_success:
   - bash <(curl -s https://codecov.io/bash) -t a704ca30-58ab-4460-862c-7ebc63d0a097
