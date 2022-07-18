@@ -1,0 +1,112 @@
+defaultName: athena
+
+server:
+  minThreads: 20
+  maxThreads: 250
+  applicationConnectors:
+    - type: http
+      port: 8080
+  adminConnectors:
+    - type: http
+      port: 8081
+
+swagger:
+  resourcePackage: org.athena
+  title: Athena API
+  version: 1.0
+  enabled: true
+  schemes:
+    - http
+
+snowflake:
+  workerId: 0
+  dataCenterId: 0
+
+# 跨域配置，线上使用 nginx配置
+cors:
+  allowedOrigins: '*'
+  allowedMethods: OPTIONS, GET, PUT, PATCH, POST, DELETE, HEAD
+  allowedHeaders: DNT, User-Agent, X-Requested-With, If-Modified-Since, Cache-Control, Content-Type, Range, Authorization
+  urlPatterns:
+    - /*
+
+# 日志配置
+logging:
+  # The default level of all loggers. Can be OFF, ERROR, WARN, INFO, DEBUG, TRACE, or ALL.
+  level: INFO
+  # Logger-specific levels.
+  loggers:
+    # Overrides the level of com.example.dw.Thing and sets it to DEBUG.
+    # "com.example.dw.Thing": DEBUG
+    "org.reflections":
+      level: OFF
+    "io.netty":
+      level: DEBUG
+    "org.athena":
+      level: DEBUG
+
+# 后台任务配置
+quartz:
+  #Configure Server Scheduler Properties
+  #==============================================================
+  #配置集群时，quartz调度器的id，由于配置集群时，只有一个调度器，必须保证每个服务器该值都相同，可以不用修改，只要每个ams都一样就行
+  org.quartz.scheduler.instanceName: "AthenaScheduler"
+  #集群中每台服务器自己的id，AUTO表示自动生成，无需修改
+  org.quartz.scheduler.instanceId: "AUTO"
+  #==============================================================
+  #Configure ThreadPool
+  #==============================================================
+  #quartz线程池的实现类，无需修改
+  org.quartz.threadPool.class: "org.quartz.simpl.SimpleThreadPool"
+  #quartz线程池中线程数，可根据任务数量和负责度来调整
+  org.quartz.threadPool.threadCount: "5"
+  #quartz线程优先级
+  org.quartz.threadPool.threadPriority: "5"
+  #==============================================================
+  #Configure JobStore
+  #==============================================================
+  #表示如果某个任务到达执行时间，而此时线程池中没有可用线程时，任务等待的最大时间，如果等待时间超过下面配置的值(毫秒)，本次就不在执行，而等待下一次执行时间的到来，可根据任务量和负责程度来调整
+  org.quartz.jobStore.misfireThreshold: "60000"
+  #实现集群时，任务的存储实现方式，org.quartz.impl.jdbcjobstore.JobStoreTX表示数据库存储，无需修改
+  org.quartz.jobStore.class: "org.quartz.impl.jdbcjobstore.JobStoreTX"
+  org.quartz.jobStore.driverDelegateClass: "org.quartz.impl.jdbcjobstore.PostgreSQLDelegate"
+  org.quartz.jobStore.useProperties: "false"
+  #quartz存储任务相关数据的表的前缀，无需修改
+  org.quartz.jobStore.tablePrefix: "quartz.QRTZ_"
+  #连接数据库数据源名称，与下面配置中org.quartz.dataSource.qzDS的qzDS一致即可，可以无需修改
+  org.quartz.jobStore.dataSource: "qzDS"
+  #是否启用集群，启用，改为true,注意：启用集群后，必须配置下面的数据源，否则quartz调度器会初始化失败
+  org.quartz.jobStore.isClustered: "true"
+  #集群中服务器相互检测间隔，每台服务器都会按照下面配置的时间间隔往服务器中更新自己的状态，如果某台服务器超过以下时间没有checkin，调度器就会认为该台服务器已经down掉，不会再分配任务给该台服务器
+  org.quartz.jobStore.clusterCheckinInterval: "20000"
+  #==============================================================
+  #Non-Managed Configure Datasource
+  #==============================================================
+  #配置连接数据库的实现类，可以参照IAM数据库配置文件中的配置
+  org.quartz.dataSource.qzDS.driver: "org.postgresql.Driver"
+  #配置连接数据库的实现类，可以参照IAM数据库配置文件中的配置
+  org.quartz.dataSource.qzDS.provider: "hikaricp"
+  #配置连接数据库连接，可以参照IAM数据库配置文件中的配置
+  org.quartz.dataSource.qzDS.URL: "jdbc:postgresql://localhost:5432/athena"
+  #配置连接数据库用户名
+  org.quartz.dataSource.qzDS.user: "postgres"
+  #配置连接数据库密码
+  org.quartz.dataSource.qzDS.password: "123456"
+  #配置连接数据库连接池大小，一般为上面配置的线程池的2倍
+  org.quartz.dataSource.qzDS.maxConnections: "10"
+
+# 数据库配置
+database:
+  driverClass: org.postgresql.Driver
+  url: jdbc:postgresql://localhost:5432/athena
+  user: postgres
+  password: 123456
+  properties:
+    charSet: UTF-8
+  minSize: 5
+  maxSize: 10
+  validationQuery: "/* MyService Health Check */ SELECT 1"
+
+redis:
+  address: redis://localhost:6379
+  db: 8

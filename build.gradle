@@ -1,0 +1,67 @@
+plugins {
+    id 'java'
+}
+
+group 'org.silence'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    lombokVersion = '1.18.24'
+    jupiterVersion = '5.8.2'
+    dropwizardVersion = '2.1.1'
+    guiceyVersion = '5.6.1-1'
+}
+
+dependencies {
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${jupiterVersion}"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jupiterVersion}"
+    // https://mvnrepository.com/artifact/org.projectlombok/lombok
+    compileOnly "org.projectlombok:lombok:${lombokVersion}"
+    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+    testCompileOnly "org.projectlombok:lombok:${lombokVersion}"
+    testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+    // https://mvnrepository.com/artifact/com.smoketurner/dropwizard-swagger
+    implementation 'com.smoketurner:dropwizard-swagger:2.0.12-1'
+    // https://mvnrepository.com/artifact/io.dropwizard/dropwizard-bom
+    implementation platform("io.dropwizard:dropwizard-bom:${dropwizardVersion}")
+    // https://mvnrepository.com/artifact/ru.vyarus.guicey/guicey-bom
+    implementation platform("ru.vyarus.guicey:guicey-bom:${guiceyVersion}")
+    // https://mvnrepository.com/artifact/io.dropwizard/dropwizard-testing
+    testImplementation 'io.dropwizard:dropwizard-testing'
+    // https://mvnrepository.com/artifact/io.dropwizard/dropwizard-forms
+    implementation 'io.dropwizard:dropwizard-forms'
+    // https://mvnrepository.com/artifact/io.dropwizard/dropwizard-auth
+    implementation 'io.dropwizard:dropwizard-auth'
+    // https://mvnrepository.com/artifact/io.dropwizard/dropwizard-jdbi3
+    implementation 'io.dropwizard:dropwizard-jdbi3'
+    // https://mvnrepository.com/artifact/ru.vyarus.guicey/guicey-jdbi3
+    implementation 'ru.vyarus.guicey:guicey-jdbi3'
+    // https://mvnrepository.com/artifact/io.github.dropwizard-jobs/dropwizard-jobs-guice
+    implementation('io.github.dropwizard-jobs:dropwizard-jobs-guice:4.0.0-RELEASE') {
+        exclude group: 'com.mchange', module: 'c3p0'
+    }
+    // https://mvnrepository.com/artifact/com.google.inject.extensions/guice-servlet
+    implementation 'com.google.inject.extensions:guice-servlet:5.1.0'
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-collections4
+    implementation 'org.apache.commons:commons-collections4:4.4'
+    // https://mvnrepository.com/artifact/org.redisson/redisson
+    implementation 'org.redisson:redisson:3.17.4'
+    // https://mvnrepository.com/artifact/org.jdbi/jdbi3-jpa
+    implementation 'org.jdbi:jdbi3-jpa:3.30.0'
+    // https://mvnrepository.com/artifact/org.postgresql/postgresql
+    implementation 'org.postgresql:postgresql:42.4.0'
+    // https://mvnrepository.com/artifact/com.zaxxer/HikariCP
+    implementation 'com.zaxxer:HikariCP:5.0.1'
+    // https://mvnrepository.com/artifact/org.bitbucket.b_c/jose4j
+    implementation 'org.bitbucket.b_c:jose4j:0.7.12'
+    // https://mvnrepository.com/artifact/org.mindrot/jbcrypt
+    implementation 'org.mindrot:jbcrypt:0.4'
+}
+
+test {
+    useJUnitPlatform()
+}
