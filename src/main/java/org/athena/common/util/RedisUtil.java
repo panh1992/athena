@@ -8,6 +8,7 @@ import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
 import org.redisson.config.TransportMode;
 
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -18,18 +19,14 @@ public final class RedisUtil {
     /**
      * 获取 RedisClient
      */
-    public static RedissonClient getClient(String address, String password, Integer db) {
-        if (client == null) {
-            synchronized (RedisUtil.class) {
-                if (client == null) {
-                    Config config = new Config();
-                    config.setTransportMode(TransportMode.NIO);
-                    config.useSingleServer().setAddress(address);
-                    config.useSingleServer().setPassword(password);
-                    config.useSingleServer().setDatabase(db);
-                    client = Redisson.create(config);
-                }
-            }
+    public static synchronized RedissonClient getClient(String address, String password, Integer db) {
+        if (Objects.isNull(client)) {
+            Config config = new Config();
+            config.setTransportMode(TransportMode.NIO);
+            config.useSingleServer().setAddress(address);
+            config.useSingleServer().setPassword(password);
+            config.useSingleServer().setDatabase(db);
+            client = Redisson.create(config);
         }
         return client;
     }

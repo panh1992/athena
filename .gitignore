@@ -74,6 +74,7 @@ fabric.properties
 
 ### Gradle template
 .gradle
+!.gradle/gradle.properties
 **/build/
 !src/**/build/
 

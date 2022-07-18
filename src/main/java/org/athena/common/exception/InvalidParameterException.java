@@ -10,20 +10,22 @@ import javax.ws.rs.core.Response;
 @Getter
 public class InvalidParameterException extends BusinessException {
 
+    static final String INVALID_PARAMETER = "InvalidParameter";
+
     private InvalidParameterException(Response.Status status, String code, String message) {
         super(status, code, message);
     }
 
     public static InvalidParameterException build() {
-        return new InvalidParameterException(Response.Status.BAD_REQUEST, "InvalidParameter", "参数验证失败");
+        return new InvalidParameterException(Response.Status.BAD_REQUEST, INVALID_PARAMETER, "参数验证失败");
     }
 
     public static InvalidParameterException build(String message) {
-        return new InvalidParameterException(Response.Status.BAD_REQUEST, "InvalidParameter", message);
+        return new InvalidParameterException(Response.Status.BAD_REQUEST, INVALID_PARAMETER, message);
     }
 
     public static InvalidParameterException build(Response.Status status, String message) {
-        return new InvalidParameterException(status, "InvalidParameter", message);
+        return new InvalidParameterException(status, INVALID_PARAMETER, message);
     }
 
     public static InvalidParameterException build(String code, String message) {
