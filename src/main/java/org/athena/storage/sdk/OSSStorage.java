@@ -1,6 +1,5 @@
 package org.athena.storage.sdk;
 
-import java.io.IOException;
 import java.io.InputStream;
 
 /**
@@ -8,17 +7,10 @@ import java.io.InputStream;
  */
 public class OSSStorage implements Storage {
 
-    // 默认分块大小 100KB
-    private static final long PART_SIZE = 1024 * 100L;
-
-    // 上传默认任务数
-    private static final int TASK_NUM = Runtime.getRuntime().availableProcessors() * 2;
-
     /**
      * 根据认证参数实例化oss存储
      */
     public OSSStorage() {
-
     }
 
     @Override

@@ -56,7 +56,7 @@ public class AthenaFileBusiness {
      * 获取下级文件列表
      */
     @InTransaction(value = TransactionIsolationLevel.REPEATABLE_READ, readOnly = true)
-    public PageResp findNextAll(Long userId, Long storeSpaceId, Long fileId, Long limit, Long offset) {
+    public PageResp<FileResp> findNextAll(Long userId, Long storeSpaceId, Long fileId, Long limit, Long offset) {
 
         Optional<StoreSpace> optionalStoreSpace = storeSpacesRepository
                 .findByStoreSpaceIdAndCreatorId(storeSpaceId, userId);
@@ -185,7 +185,7 @@ public class AthenaFileBusiness {
             throw InvalidParameterException.build("根目录不允许移动");
         }
         AthenaFile dir = this.getAthenaFile(userId, fileDirId);
-        if (!dir.getDir()) {
+        if (Boolean.FALSE.equals(dir.getDir())) {
             throw InvalidParameterException.build("目标文件不是目录，不允许移动，请校验");
         }
         // TODO: 实现数据修改
@@ -197,14 +197,14 @@ public class AthenaFileBusiness {
      *
      * @param isDel 是否强制删除
      */
-    public void remove(Long userId, Long fileId, Boolean isDel) {
+    public void remove(Long userId, Long fileId, boolean isDel) {
         AthenaFile file = this.getAthenaFile(userId, fileId);
         AthenaFile athenaFile = this.getAncestorFile(file.getStoreSpaceId(), file.getStoreSpaceName());
         if (athenaFile.getFileId().equals(file.getFileId())) {
             throw InvalidParameterException.build("根目录不允许删除");
         }
         // 如果文件为目录且不强制删除, 校验目录下是否有文件
-        if (file.getDir() && !isDel && athenaFileRepository.countByDescendantFileAndDepth(fileId, 1L) > 0) {
+        if (Boolean.TRUE.equals(file.getDir()) && !isDel && athenaFileRepository.countByDescendantFileAndDepth(fileId, 1L) > 0) {
             throw InvalidParameterException.build(Response.Status.CONFLICT, "删除失败, 该目录下存在文件");
         }
         athenaFileRepository.removeAthenaFile(fileId, userId, FileStatus.DELETED.name());

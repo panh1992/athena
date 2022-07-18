@@ -100,7 +100,7 @@ public class FileResource {
     @Path("/{file_id}")
     public Response remove(@Auth UserInfo userInfo, @ApiParam("文件主键") @PathParam("file_id") Long fileId,
                            @ApiParam("是否强制删除") @PathParam("delete") Boolean delete) {
-        athenaFileBusiness.remove(userInfo.getUserId(), fileId, Objects.isNull(delete) ? null : delete);
+        athenaFileBusiness.remove(userInfo.getUserId(), fileId, !Objects.isNull(delete) && delete);
         return Response.ok(Result.build()).build();
     }
 
